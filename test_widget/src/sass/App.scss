@@ -1,0 +1,244 @@
+$font: sans-serif;
+
+$theme_color: #794297;
+$secondary_color: rgb(211, 211, 211);
+$logo_height: 200px;
+$logo_bg: #fff;
+$progress: 40%;
+
+@mixin FlexDirection ($direction){
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $font;
+    &::before,
+    &::after{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+}
+
+.App{
+    @include FlexDirection(row);
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 40px;
+}
+
+
+
+// WIDGET
+.thermometer_container{
+    width: 100%;
+    max-width: 320px;
+    min-width: 280px;
+    border: 2px solid $secondary_color;
+    position: relative;
+    .thermometer_logo{
+        width: 100%;
+        background-color: $logo_bg;
+        @include FlexDirection(column);
+        &>img:first-child{
+            display: block;
+            width: calc(100% - 40px);
+            height: auto;
+            min-height: 160px;
+            max-height: $logo_height;
+            padding: 20px 0;
+            object-fit: contain;
+        }
+    }
+    .thermometer_content{
+        @include FlexDirection(column);
+        background-color: #f3f3f3;
+        &>div{
+            flex: 1;
+            padding: 10px 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .thermometer_name{
+            padding-top: 20px;
+        }
+        .thermometer_amount{
+            font-size: 2rem;
+            font-weight: 600;
+            color: $theme_color;
+        }
+        .thermometer_progress{
+            .progress_text{
+                position: relative;
+                @include FlexDirection(row);
+                justify-content: space-between;
+                color: grey;
+                margin-bottom: 5px;
+                .progress_text_middle{
+                    position: absolute;
+                    top: -5px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    text-transform: uppercase;
+                    color: #000;
+                }
+            }
+            .progress_bar{
+                width: 100%;
+                min-height: 8px;
+                position: relative;
+                border: 1px solid $secondary_color;
+                overflow: hidden;
+                .progress_bar_line{
+                    width: $progress;
+                    min-height: 8px;
+                    position: absolute;
+                    left: 0;
+                    background-color: $theme_color;
+                    transition: all .5s linear;
+                }
+            }
+
+        }
+        .thermometer_action{
+            padding-bottom: 20px;
+        }
+    }
+}
+// WIDGET ENDS
+
+
+
+// BUTTON
+.my_button{
+    //reset
+    background: none;
+    border: none;
+    outline: none;
+
+    display: block;
+    width: 100%;
+    padding: 16px 20px;
+    background-color: $theme_color;
+    border-radius: 6px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    &:hover{
+        transform: scale(1.06);
+    }
+}
+// BUTTON ENDS
+
+
+
+// MODAL
+.myModal_container{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 0 15px;
+    padding-top: 40px;
+	min-width: 320px;
+    display: none;
+    cursor: pointer;
+    &.mod_active{
+        display: block;
+    }
+    .myModal{
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px 15px;
+        min-width: 290px;
+        cursor: default;
+    }
+}
+// MODAL ENDS
+
+
+
+// DONATION FORM
+.donationForm_container{
+    padding: 10px;
+    .donationForm_title{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    label{
+        color: $theme_color;
+    }
+    input{
+        background: none;
+        outline: none;
+        border: none;
+
+        width: 100%;
+        padding: 10px 20px;
+        border-radius: 6px;
+        border: 1px solid $secondary_color;
+        margin-top: 5px;
+    }
+}
+.donationForm_actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    .space{
+        width: 40px;
+        height: 20px;
+    }
+}
+// DONATION FORM ENDS
+
+
+
+// NOTIFICATION
+    .notification_container{
+        width: calc(100% - 40px);
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 20px;
+        border-radius: 6px;
+        background-color: rgb(110, 203, 110);
+        text-align: center;
+        color: #fff;
+        font-weight: 500;
+        letter-spacing: 0.4px;
+        display: none;
+        animation: up_down 0.7s ease-out;
+    }
+    .show{
+        display: block;
+    }
+
+    @keyframes up_down{
+        from {
+            top: -50px;
+            left: 50%;
+            opacity: 0
+        }
+        to {
+            top: -30px;
+            left: 50%;
+            opacity: 1
+        }
+    }
+
+// NOTIFICATION ENDS
